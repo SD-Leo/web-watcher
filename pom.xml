@@ -12,6 +12,7 @@
     <modules>
         <module>webwatcher-domain</module>
         <module>webwatcher-core</module>
+        <module>webwatcher-app</module>
     </modules>
 
     <properties>
