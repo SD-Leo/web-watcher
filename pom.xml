@@ -10,10 +10,8 @@
     <version>1.0.0</version>
 
     <modules>
-        <!--<module>webwatcher-domain</module>-->
-        <!--<module>webwatcher-core</module>-->
-        <!--<module>webwatcher-app</module>-->
         <module>webwatcher-domain</module>
+        <module>webwatcher-core</module>
     </modules>
 
     <properties>
