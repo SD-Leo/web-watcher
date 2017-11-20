@@ -3,14 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>webmonitor-root</artifactId>
-        <groupId>ru.davist.webmonitor</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>webwatcher</artifactId>
+        <groupId>ru.davist.webwatcher</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.davist.webmonitor</groupId>
-    <artifactId>webmonitor-domain</artifactId>
+    <groupId>ru.davist.webwatcher</groupId>
+    <artifactId>webwatcher-domain</artifactId>
+    <version>1.0.0</version>
 
 
 </project>
