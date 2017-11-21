@@ -11,16 +11,12 @@
 
     <artifactId>webwatcher-app</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>ru.davist.webwatcher</groupId>
             <artifactId>webwatcher-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
     </dependencies>
-
 
 </project>
