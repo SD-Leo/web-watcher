@@ -28,8 +28,8 @@ public class Start {
 //
 //        result.ifPresent(res -> {
 //            log.info("Price: " + res.getValue());
-//            if (res.getOldValue() != null) {
-//                log.info("Old price: " + res.getOldValue());
+//            if (res.getPrevValue() != null) {
+//                log.info("Old price: " + res.getPrevValue());
 //
 //            }
 //        });
@@ -42,8 +42,8 @@ public class Start {
 
         result1.ifPresent(res -> {
             log.info("Price: " + res.getValue());
-            if (res.getOldValue() != null) {
-                log.info("Old price: " + res.getOldValue());
+            if (res.getPrevValue() != null) {
+                log.info("Old price: " + res.getPrevValue());
 
             }
         });
@@ -53,8 +53,8 @@ public class Start {
 //
 //        result.ifPresent(result1 -> {
 //            log.info("Price: " + result1.getValue());
-//            if (result1.getOldValue() != null) {
-//                log.info("Old price: " + result1.getOldValue());
+//            if (result1.getPrevValue() != null) {
+//                log.info("Old price: " + result1.getPrevValue());
 //
 //            }
 //        });

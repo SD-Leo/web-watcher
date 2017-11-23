@@ -39,8 +39,8 @@ public class GenericExtractorTest {
 
         result1.ifPresent(res -> {
             log.info("Price: " + res.getValue());
-            if (res.getOldValue() != null) {
-                log.info("Old price: " + res.getOldValue());
+            if (res.getPrevValue() != null) {
+                log.info("Old price: " + res.getPrevValue());
 
             }
         });

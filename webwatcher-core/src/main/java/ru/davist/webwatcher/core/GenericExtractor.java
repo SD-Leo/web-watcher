@@ -99,7 +99,7 @@ public class GenericExtractor implements Extractor {
                 elems.forEach(element -> log.info("{}", element));
             }
             String value = elems.first().text();
-            result.setOldValue(value);
+            result.setPrevValue(value);
         }
         return result;
     }
