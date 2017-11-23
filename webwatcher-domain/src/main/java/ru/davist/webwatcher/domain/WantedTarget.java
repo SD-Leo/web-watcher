@@ -29,4 +29,8 @@ public class WantedTarget {
     private List<String> selectors;
 
     private List<String> prevValueSelectors;
+
+    private String userId;
+
+    private GrabInterval grabInterval;
 }

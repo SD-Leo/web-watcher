@@ -27,6 +27,10 @@ public class User {
 
     private List<Notifier> notifiers;
 
+    public String getId() {
+        return id;
+    }
+
     public String getLogin() {
         return login;
     }
