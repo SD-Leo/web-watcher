@@ -1,6 +1,7 @@
 package ru.davist.webwatcher.core;
 
 import ru.davist.webwatcher.domain.Result;
+import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.util.Optional;
 
@@ -11,5 +12,5 @@ import java.util.Optional;
  */
 public interface Extractor {
 
-    Optional<Result> get(String url);
+    Optional<Result> get(WantedTarget target);
 }

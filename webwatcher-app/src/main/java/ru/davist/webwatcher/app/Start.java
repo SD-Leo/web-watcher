@@ -6,6 +6,7 @@ import ru.davist.webwatcher.core.DnsExtractor;
 import ru.davist.webwatcher.core.Extractor;
 import ru.davist.webwatcher.core.JbExtractor;
 import ru.davist.webwatcher.domain.Result;
+import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -38,7 +39,9 @@ public class Start {
 
 
         ex = new JbExtractor();
-        Optional<Result> result1 = ex.get("https://www.jetbrains.com/idea/buy/#edition=personal");
+        WantedTarget target = new WantedTarget();
+        target.setUrl("https://www.jetbrains.com/idea/buy/#edition=personal");
+        Optional<Result> result1 = ex.get(target);
 
         result1.ifPresent(res -> {
             log.info("Price: " + res.getValue());

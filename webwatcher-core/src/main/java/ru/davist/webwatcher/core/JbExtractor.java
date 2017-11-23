@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.davist.webwatcher.domain.Result;
+import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -21,10 +22,10 @@ public class JbExtractor implements Extractor {
     private static final Logger log = LoggerFactory.getLogger(JbExtractor.class);
 
     @Override
-    public Optional<Result> get(String url) {
+    public Optional<Result> get(WantedTarget target) {
 
         try {
-            Element body = Jsoup.connect(url).get().body();
+            Element body = Jsoup.connect(target.getUrl()).get().body();
 
 //            log.info("Город: {}", body.getElementsByClass("city-select w-choose-city-widget").first().text());
 

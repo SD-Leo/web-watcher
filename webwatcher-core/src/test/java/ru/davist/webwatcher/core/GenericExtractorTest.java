@@ -9,7 +9,9 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.davist.webwatcher.domain.Result;
+import ru.davist.webwatcher.domain.WantedTarget;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -23,19 +25,24 @@ public class GenericExtractorTest {
     @Test
     public void test() {
         GenericExtractor ex = new GenericExtractor();
-        ex.thenSelect("div.context-product-placement-data")
-            .thenSelect("div.price-info")
-            .thenSelect("div.price-text")
-            .thenSelect("span[aria-label]");
+        WantedTarget target = new WantedTarget();
 
-        ex.thenSelectOld("div.context-product-placement-data")
-            .thenSelectOld("div.price-info")
-            .thenSelectOld("div.price-text")
-            .thenSelectOld("s.srv_saleprice");
+        target.setUrl("https://www.microsoft.com/ru-ru/store/p/wolfenstein-the-two-pack/bzj43gk4l0jc");
 
+        target.setSelectors(new ArrayList<>(4));
+        target.addSelector("div.context-product-placement-data");
+        target.addSelector("div.price-info");
+        target.addSelector("div.price-text");
+        target.addSelector("span[aria-label]");
+
+        target.setPrevValueSelectors(new ArrayList<>(4));
+        target.addPrevValueSelector("div.context-product-placement-data");
+        target.addPrevValueSelector("div.price-info");
+        target.addPrevValueSelector("div.price-text");
+        target.addPrevValueSelector("s.srv_saleprice");
 
 //        Optional<Result> result1 = ex.get("https://www.microsoft.com/ru-ru/store/p/n-nplusplus/bt33chssb89v"); // N++
-        Optional<Result> result1 = ex.get("https://www.microsoft.com/ru-ru/store/p/wolfenstein-the-two-pack/bzj43gk4l0jc"); // Wolfenstein®: The Two-Pack
+        Optional<Result> result1 = ex.get(target); // Wolfenstein®: The Two-Pack
 
         result1.ifPresent(res -> {
             log.info("Price: " + res.getValue());

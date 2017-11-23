@@ -3,6 +3,7 @@
  */
 package ru.davist.webwatcher.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,4 +34,67 @@ public class WantedTarget {
     private String userId;
 
     private GrabInterval grabInterval;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<String> getSelectors() {
+        return selectors;
+    }
+
+    public void setSelectors(List<String> selectors) {
+        this.selectors = selectors;
+    }
+
+    public void addSelector(String selector) {
+        if (this.selectors == null) {
+            this.selectors = new ArrayList<>();
+        }
+        this.selectors.add(selector);
+    }
+
+    public List<String> getPrevValueSelectors() {
+        return prevValueSelectors;
+    }
+
+    public void setPrevValueSelectors(List<String> prevValueSelectors) {
+        this.prevValueSelectors = prevValueSelectors;
+    }
+
+    public void addPrevValueSelector(String prevValueSelector) {
+        if (this.prevValueSelectors == null) {
+            this.prevValueSelectors = new ArrayList<>();
+        }
+        this.prevValueSelectors.add(prevValueSelector);
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public GrabInterval getGrabInterval() {
+        return grabInterval;
+    }
+
+    public void setGrabInterval(GrabInterval grabInterval) {
+        this.grabInterval = grabInterval;
+    }
 }

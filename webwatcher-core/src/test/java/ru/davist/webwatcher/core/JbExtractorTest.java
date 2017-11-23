@@ -9,6 +9,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.davist.webwatcher.domain.Result;
+import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.util.Optional;
 
@@ -23,7 +24,9 @@ public class JbExtractorTest {
     @Test
     public void test() {
         Extractor ex = new JbExtractor();
-        Optional<Result> result1 = ex.get("https://www.jetbrains.com/idea/buy/#edition=personal");
+        WantedTarget target = new WantedTarget();
+        target.setUrl("https://www.jetbrains.com/idea/buy/#edition=personal");
+        Optional<Result> result1 = ex.get(target);
 
         result1.ifPresent(res -> {
             log.info("!!!!!!  Price: " + res.getValue());
