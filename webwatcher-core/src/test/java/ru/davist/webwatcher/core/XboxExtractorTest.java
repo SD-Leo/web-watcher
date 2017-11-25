@@ -3,6 +3,7 @@
  */
 package ru.davist.webwatcher.core;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -18,16 +19,17 @@ import java.util.Optional;
  * @author Starovoytov Danil
  */
 @RunWith(BlockJUnit4ClassRunner.class)
-public class GenericExtractorTest {
+public class XboxExtractorTest {
 
-    private static final Logger log = LoggerFactory.getLogger(GenericExtractorTest.class);
+    private static final Logger log = LoggerFactory.getLogger(XboxExtractorTest.class);
 
     @Test
     public void test() {
-        GenericExtractor ex = new GenericExtractor();
+        Extractor ex = new GenericExtractor();
         WantedTarget target = new WantedTarget();
 
-        target.setUrl("https://www.microsoft.com/ru-ru/store/p/wolfenstein-the-two-pack/bzj43gk4l0jc");
+        target.setUrl("https://www.microsoft.com/ru-ru/store/p/n-nplusplus/bt33chssb89v"); // N++
+//        target.setUrl("https://www.microsoft.com/ru-ru/store/p/wolfenstein-the-two-pack/bzj43gk4l0jc"); // Wolfenstein®: The Two-Pack
 
         target.setSelectors(new ArrayList<>(4));
         target.addSelector("div.context-product-placement-data");
@@ -41,14 +43,13 @@ public class GenericExtractorTest {
         target.addPrevValueSelector("div.price-text");
         target.addPrevValueSelector("s.srv_saleprice");
 
-//        Optional<Result> result1 = ex.get("https://www.microsoft.com/ru-ru/store/p/n-nplusplus/bt33chssb89v"); // N++
-        Optional<Result> result1 = ex.get(target); // Wolfenstein®: The Two-Pack
+        Optional<Result> result = ex.get(target);
 
-        result1.ifPresent(res -> {
+        result.ifPresent(res -> {
             log.info("Price: " + res.getValue());
+            Assert.assertTrue(res.getValue().contains("599,00"));
             if (res.getPrevValue() != null) {
                 log.info("Old price: " + res.getPrevValue());
-
             }
         });
     }

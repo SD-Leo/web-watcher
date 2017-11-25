@@ -27,6 +27,8 @@ public class User {
 
     private List<Notifier> notifiers;
 
+    private boolean notifyOnError;
+
     public String getId() {
         return id;
     }
@@ -77,5 +79,13 @@ public class User {
 
     public void setNotifiers(List<Notifier> notifiers) {
         this.notifiers = notifiers;
+    }
+
+    public boolean isNotifyOnError() {
+        return notifyOnError;
+    }
+
+    public void setNotifyOnError(boolean notifyOnError) {
+        this.notifyOnError = notifyOnError;
     }
 }

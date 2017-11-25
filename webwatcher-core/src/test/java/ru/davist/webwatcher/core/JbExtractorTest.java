@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import ru.davist.webwatcher.domain.Result;
 import ru.davist.webwatcher.domain.WantedTarget;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -23,16 +24,23 @@ public class JbExtractorTest {
 
     @Test
     public void test() {
-        Extractor ex = new JbExtractor();
+        Extractor ex = new GenericExtractor();
         WantedTarget target = new WantedTarget();
         target.setUrl("https://www.jetbrains.com/idea/buy/#edition=personal");
-        Optional<Result> result1 = ex.get(target);
+        target.setSelectors(new ArrayList<>(6));
+        target.addSelector("div[data-id=personal]");
+        target.addSelector("div._spacer");
+        target.addSelector("div[data-id=yearly]");
+        target.addSelector("div[data-user-license=new]");
+        target.addSelector("span.price-list__first-year");
+        target.addSelector("span.-current__price");
 
-        result1.ifPresent(res -> {
-            log.info("!!!!!!  Price: " + res.getValue());
+        Optional<Result> result = ex.get(target);
+
+        result.ifPresent(res -> {
+            log.info("Price: {}", res.getValue());
             if (res.getPrevValue() != null) {
-                log.info("Old price: " + res.getPrevValue());
-
+                log.info("Old price: {}", res.getPrevValue());
             }
         });
     }

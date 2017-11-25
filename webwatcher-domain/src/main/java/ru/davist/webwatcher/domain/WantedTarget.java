@@ -4,7 +4,9 @@
 package ru.davist.webwatcher.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Желанная цель. Это некоторое значение, которое необходимо получать с web-страницы.
@@ -34,6 +36,8 @@ public class WantedTarget {
     private String userId;
 
     private GrabInterval grabInterval;
+
+    private Map<String, String> cookies;
 
 
     public String getName() {
@@ -96,5 +100,20 @@ public class WantedTarget {
 
     public void setGrabInterval(GrabInterval grabInterval) {
         this.grabInterval = grabInterval;
+    }
+
+    public Map<String, String> getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(Map<String, String> cookies) {
+        this.cookies = cookies;
+    }
+
+    public void addCookie(String key, String value) {
+        if (this.cookies == null) {
+            this.cookies = new HashMap<>();
+        }
+        this.cookies.put(key, value);
     }
 }

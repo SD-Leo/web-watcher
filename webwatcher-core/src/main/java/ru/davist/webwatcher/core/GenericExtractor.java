@@ -3,6 +3,7 @@
  */
 package ru.davist.webwatcher.core;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,30 +23,14 @@ public class GenericExtractor implements Extractor {
 
     private static final Logger log = LoggerFactory.getLogger(GenericExtractor.class);
 
-//    private List<String> selectors;
-//    private List<String> prevPriceSelectors;
-
-    public GenericExtractor() {
-//        this.selectors = new LinkedList<>();
-    }
-
-//    public GenericExtractor thenSelect(String selector) {
-//        this.selectors.add(selector);
-//        return this;
-//    }
-//
-//    public GenericExtractor thenSelectOld(String selector) {
-//        if (this.prevPriceSelectors == null) {
-//            this.prevPriceSelectors = new LinkedList<>();
-//        }
-//        this.prevPriceSelectors.add(selector);
-//        return this;
-//    }
-
     @Override
     public Optional<Result> get(WantedTarget target) {
         try {
-            Element body = Jsoup.connect(target.getUrl()).get().body();
+            Connection conn = Jsoup.connect(target.getUrl());
+            if (target.getCookies() != null && !target.getCookies().isEmpty()) {
+                conn.cookies(target.getCookies());
+            }
+            Element body = conn.get().body();
 
             Elements elems = null;
 
@@ -64,8 +49,8 @@ public class GenericExtractor implements Extractor {
                 }
             }
             if (elems != null && elems.size() != 0) {
-                log.info("elemets found: {}", elems.size());
                 if (elems.size() > 1) {
+                    log.info("Elemets found: {}", elems.size());
                     elems.forEach(element -> log.info("{}", element));
                 }
                 String value = elems.first().text();
@@ -83,23 +68,25 @@ public class GenericExtractor implements Extractor {
     }
 
     private Result findOldPrice(List<String> selectors, Element body, Result result) {
-        Elements elems = null;
-        boolean isFirst = true;
-        for (String selectorQuery : selectors) {
-            if (isFirst) {
-                elems = body.select(selectorQuery);
-                isFirst = false;
-            } else {
-                elems = elems.select(selectorQuery);
+        if (selectors != null && !selectors.isEmpty()) {
+            Elements elems = null;
+            boolean isFirst = true;
+            for (String selectorQuery : selectors) {
+                if (isFirst) {
+                    elems = body.select(selectorQuery);
+                    isFirst = false;
+                } else {
+                    elems = elems.select(selectorQuery);
+                }
             }
-        }
-        if (elems != null && elems.size() != 0) {
-            log.info("elemets found: {}", elems.size());
-            if (elems.size() > 1) {
-                elems.forEach(element -> log.info("{}", element));
+            if (elems != null && elems.size() != 0) {
+                if (elems.size() > 1) {
+                    log.info("elemets found: {}", elems.size());
+                    elems.forEach(element -> log.info("{}", element));
+                }
+                String value = elems.first().text();
+                result.setPrevValue(value);
             }
-            String value = elems.first().text();
-            result.setPrevValue(value);
         }
         return result;
     }

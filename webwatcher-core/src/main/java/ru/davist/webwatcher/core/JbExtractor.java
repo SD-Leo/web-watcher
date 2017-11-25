@@ -29,7 +29,8 @@ public class JbExtractor implements Extractor {
 
 //            log.info("Город: {}", body.getElementsByClass("city-select w-choose-city-widget").first().text());
 
-            Elements elems = body.select("div[data-id=personal]")
+            Elements elems = body
+                .select("div[data-id=personal]")
                 .select("div._spacer")
                 .select("div[data-id=yearly]")
                 .select("div[data-user-license=new]")
