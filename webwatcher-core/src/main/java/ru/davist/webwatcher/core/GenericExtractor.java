@@ -14,6 +14,7 @@ import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -31,22 +32,15 @@ public class GenericExtractor implements Extractor {
                 conn.cookies(target.getCookies());
             }
             Element body = conn.get().body();
-
-            Elements elems = null;
+            Elements elems = body.children();
 
             if (target.getSelectors().isEmpty()) {
                 log.debug("No selectors are found!");
                 return Optional.empty();
             }
 
-            boolean isFirst = true;
             for (String selectorQuery : target.getSelectors()) {
-                if (isFirst) {
-                    elems = body.select(selectorQuery);
-                    isFirst = false;
-                } else {
-                    elems = elems.select(selectorQuery);
-                }
+                elems = elems.select(selectorQuery);
             }
             if (elems != null && elems.size() != 0) {
                 if (elems.size() > 1) {
@@ -55,7 +49,7 @@ public class GenericExtractor implements Extractor {
                 }
                 String value = elems.first().text();
                 Result result = new Result(value);
-                result = findOldPrice(target.getPrevValueSelectors(), body, result);
+                result = findAdditionalValues(target.getAdditionalSelectors(), body, result);
                 return Optional.of(result);
             }
             log.info("Elements are not found");
@@ -67,26 +61,34 @@ public class GenericExtractor implements Extractor {
         }
     }
 
-    private Result findOldPrice(List<String> selectors, Element body, Result result) {
+    private Result findAdditionalValues(Map<String, List<String>> selectors, Element body, Result result) {
         if (selectors != null && !selectors.isEmpty()) {
-            Elements elems = null;
-            boolean isFirst = true;
-            for (String selectorQuery : selectors) {
-                if (isFirst) {
-                    elems = body.select(selectorQuery);
-                    isFirst = false;
-                } else {
+            for (Map.Entry<String, List<String>> entry : selectors.entrySet()) {
+                Elements elems = body.children();
+                String name = entry.getKey();
+                for (String selectorQuery : entry.getValue()) {
                     elems = elems.select(selectorQuery);
                 }
-            }
-            if (elems != null && elems.size() != 0) {
-                if (elems.size() > 1) {
-                    log.info("elemets found: {}", elems.size());
-                    elems.forEach(element -> log.info("{}", element));
+                if (elems != null && elems.size() != 0) {
+                    if (elems.size() > 1) {
+                        log.info("Elemets found: {}", elems.size());
+                        elems.forEach(element -> log.info("{}", element));
+                    }
+                    String value = elems.first().text();
+                    result.addAdditionalValue(name, value);
                 }
-                String value = elems.first().text();
-                result.setPrevValue(value);
             }
+
+//            for (String selectorQuery : selectors) {
+//            }
+//            if (elems != null && elems.size() != 0) {
+//                if (elems.size() > 1) {
+//                    log.info("Elemets found: {}", elems.size());
+//                    elems.forEach(element -> log.info("{}", element));
+//                }
+//                String value = elems.first().text();
+//                result.setPrevValue(value);
+//            }
         }
         return result;
     }

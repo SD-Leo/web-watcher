@@ -49,7 +49,7 @@ public class DnsExtractor implements Extractor {
                 oldValue = elems.first().attr("data-price-value");
             }
 
-            return Optional.of(new Result(value, oldValue));
+            return Optional.of(new Result(value));
         } catch (IOException e) {
             return Optional.empty();
         }

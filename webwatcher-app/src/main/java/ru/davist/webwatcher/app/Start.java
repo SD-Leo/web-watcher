@@ -4,12 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.davist.webwatcher.core.DnsExtractor;
 import ru.davist.webwatcher.core.Extractor;
-import ru.davist.webwatcher.core.JbExtractor;
-import ru.davist.webwatcher.domain.Result;
-import ru.davist.webwatcher.domain.WantedTarget;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * on 18/11/2017.
@@ -38,18 +34,18 @@ public class Start {
 //        log.debug("111");
 
 
-        ex = new JbExtractor();
-        WantedTarget target = new WantedTarget();
-        target.setUrl("https://www.jetbrains.com/idea/buy/#edition=personal");
-        Optional<Result> result1 = ex.get(target);
-
-        result1.ifPresent(res -> {
-            log.info("Price: " + res.getValue());
-            if (res.getPrevValue() != null) {
-                log.info("Old price: " + res.getPrevValue());
-
-            }
-        });
+//        ex = new JbExtractor();
+//        WantedTarget target = new WantedTarget();
+//        target.setUrl("https://www.jetbrains.com/idea/buy/#edition=personal");
+//        Optional<Result> result1 = ex.get(target);
+//
+//        result1.ifPresent(res -> {
+//            log.info("Price: " + res.getValue());
+//            if (res.getPrevValue() != null) {
+//                log.info("Old price: " + res.getPrevValue());
+//
+//            }
+//        });
 
 
 //        result = ex.get("https://www.dns-shop.ru/product/cd363dc335473330/101-netbuk-irbis-nb26-fioletovyj/");

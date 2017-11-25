@@ -37,19 +37,20 @@ public class XboxExtractorTest {
         target.addSelector("div.price-text");
         target.addSelector("span[aria-label]");
 
-        target.setPrevValueSelectors(new ArrayList<>(4));
-        target.addPrevValueSelector("div.context-product-placement-data");
-        target.addPrevValueSelector("div.price-info");
-        target.addPrevValueSelector("div.price-text");
-        target.addPrevValueSelector("s.srv_saleprice");
+//        target.setPrevValueSelectors(new ArrayList<>(4));
+        String prevPrice = "Старая цена";
+        target.addAdditionalSelector(prevPrice, "div.context-product-placement-data");
+        target.addAdditionalSelector(prevPrice, "div.price-info");
+        target.addAdditionalSelector(prevPrice, "div.price-text");
+        target.addAdditionalSelector(prevPrice, "s.srv_saleprice");
 
         Optional<Result> result = ex.get(target);
 
         result.ifPresent(res -> {
             log.info("Price: " + res.getValue());
             Assert.assertTrue(res.getValue().contains("599,00"));
-            if (res.getPrevValue() != null) {
-                log.info("Old price: " + res.getPrevValue());
+            if (res.getAdditionalValues() != null && !res.getAdditionalValues().isEmpty()) {
+                res.getAdditionalValues().forEach((s, s2) -> log.info("{}: {}", s, s2));
             }
         });
     }

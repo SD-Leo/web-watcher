@@ -29,12 +29,26 @@ public class WantedTarget {
      */
     private String url;
 
+    /**
+     * Последовательный набор веб-селекторов, по которым будет осуществлятся поиск требуемого значения на странице.
+     * Селекторы должны быть jquary-подобными
+     */
     private List<String> selectors;
 
-    private List<String> prevValueSelectors;
+    /**
+     * Иногда хочется на странице "наблюдать" за несколькими значениями. Например: предыдущая цена, время, геопозиция и др.
+     * Это можно осуществить с помощью дополнительных селекторов.
+     */
+    private Map<String, List<String>> additionalSelectors;
 
+    /**
+     * Идентификатор пользователя-владельца
+     */
     private String userId;
 
+    /**
+     * Настройки интервала, как часто нужно осуществлять проверку страницы на изменения
+     */
     private GrabInterval grabInterval;
 
     private Map<String, String> cookies;
@@ -71,19 +85,20 @@ public class WantedTarget {
         this.selectors.add(selector);
     }
 
-    public List<String> getPrevValueSelectors() {
-        return prevValueSelectors;
+    public Map<String, List<String>> getAdditionalSelectors() {
+        return additionalSelectors;
     }
 
-    public void setPrevValueSelectors(List<String> prevValueSelectors) {
-        this.prevValueSelectors = prevValueSelectors;
+    public void setAdditionalSelectors(Map<String, List<String>> additionalSelectors) {
+        this.additionalSelectors = additionalSelectors;
     }
 
-    public void addPrevValueSelector(String prevValueSelector) {
-        if (this.prevValueSelectors == null) {
-            this.prevValueSelectors = new ArrayList<>();
+    public void addAdditionalSelector(String name, String selector) {
+        if (this.additionalSelectors == null) {
+            this.additionalSelectors = new HashMap<>();
         }
-        this.prevValueSelectors.add(prevValueSelector);
+        this.additionalSelectors.computeIfAbsent(name, k -> new ArrayList<>());
+        this.additionalSelectors.get(name).add(selector);
     }
 
     public String getUserId() {

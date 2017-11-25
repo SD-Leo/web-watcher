@@ -18,13 +18,6 @@ public class Result {
     private String value;
 
     /**
-     * Предыдущее значение. Важно понимать, что это не значение предыдущего "замера"
-     * а значение на той же странице, например зачеркнутая старая цена (до применения скидки).
-     * Это необязательное значение - его может не быть на странице.
-     */
-    private String prevValue;
-
-    /**
      * Время когда получены данные со страницы
      */
     private LocalDateTime time;
@@ -44,25 +37,12 @@ public class Result {
         this.value = value;
     }
 
-    public Result(String value, String prevValue) {
-        this(value);
-        this.prevValue = prevValue;
-    }
-
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public String getPrevValue() {
-        return prevValue;
-    }
-
-    public void setPrevValue(String prevValue) {
-        this.prevValue = prevValue;
     }
 
     public LocalDateTime getTime() {

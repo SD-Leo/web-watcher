@@ -39,8 +39,8 @@ public class JbExtractorTest {
 
         result.ifPresent(res -> {
             log.info("Price: {}", res.getValue());
-            if (res.getPrevValue() != null) {
-                log.info("Old price: {}", res.getPrevValue());
+            if (res.getAdditionalValues() != null && !res.getAdditionalValues().isEmpty()) {
+                res.getAdditionalValues().forEach((s, s2) -> log.info("{}: {}", s, s2));
             }
         });
     }

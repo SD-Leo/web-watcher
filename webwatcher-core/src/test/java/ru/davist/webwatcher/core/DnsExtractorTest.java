@@ -35,16 +35,21 @@ public class DnsExtractorTest {
         target.addSelector("div.clearfix");
         target.addSelector("span[data-role=current-price-value]");
 
-        target.addPrevValueSelector("div.clearfix");
-        target.addPrevValueSelector("s.prev-price-total");
+        String prevPrice = "Старая цена";
+        target.addAdditionalSelector(prevPrice, "div.clearfix");
+        target.addAdditionalSelector(prevPrice, "s.prev-price-total");
+
+        String city = "Город";
+        target.addAdditionalSelector(city, "div.navbar-menu");
+        target.addAdditionalSelector(city, "a.city-select");
 
         Optional<Result> result1 = ex.get(target);
 
         result1.ifPresent(res -> {
             log.info("Name: {}", target.getName());
             log.info("Price: " + res.getValue());
-            if (res.getPrevValue() != null) {
-                log.info("Old price: " + res.getPrevValue());
+            if (res.getAdditionalValues() != null && !res.getAdditionalValues().isEmpty()) {
+                res.getAdditionalValues().forEach((s, s2) -> log.info("{}: {}", s, s2));
             }
         });
     }
