@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ru.davist.webwatcher.domain.ScreenshotEventType.NONE;
+
 /**
  * Желанная цель. Это некоторое значение, которое необходимо получать с web-страницы.
  * Хоть и объект пытаеться быть универсальным, но почти все заточено на то, чтобы получать цену товара.
@@ -52,6 +54,8 @@ public class WantedTarget {
     private GrabInterval grabInterval;
 
     private Map<String, String> cookies;
+
+    private ScreenshotEventType makeScreenshot = NONE;
 
 
     public String getName() {
@@ -130,5 +134,13 @@ public class WantedTarget {
             this.cookies = new HashMap<>();
         }
         this.cookies.put(key, value);
+    }
+
+    public ScreenshotEventType getMakeScreenshot() {
+        return makeScreenshot;
+    }
+
+    public void setMakeScreenshot(ScreenshotEventType makeScreenshot) {
+        this.makeScreenshot = makeScreenshot;
     }
 }
